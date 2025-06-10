@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  neutralino-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: neutralino-build
+    volumes:
+      # Montar diretório de saída
+      - ./dist:/output:rw
+      # Montar código fonte para debug
+      - ./resources:/app/resources:rw
+      - ./neutralino.config.json:/app/neutralino.config.json:rw
+    environment:
+      - NODE_ENV=production
+    command: >
+      sh -c "
+        echo '=== Iniciando build ===' &&
+        ls -la resources/ &&
+        neu update &&
+        neu build &&
+        echo '=== Copiando arquivos ===' &&
+        mkdir -p /output &&
+        cp -r dist/* /output/ 2>/dev/null &&
+        ls -la /output/ &&
+        echo '=== Build concluído ==='
+      "
