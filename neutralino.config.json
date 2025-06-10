@@ -39,7 +39,7 @@
         "clientVersion": "3.12.0",
         "binaries": {
             "windows": {
-                "x64": "neutralino-win_x64.exe"
+                "x64": "kumite-win_x64.exe"
             }
         }
     }
