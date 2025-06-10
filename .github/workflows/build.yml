@@ -1,11 +1,6 @@
 name: Build Neutralino App
 
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
@@ -18,9 +13,11 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Build and run with Docker Compose
-      run: |
-        docker-compose up --build --abort-on-container-exit
+    - name: Run Docker Compose
+      uses: isbang/compose-action@v1.5.1
+      with:
+        compose-file: "./docker-compose.yml"
+        down-flags: "--volumes"
 
     - name: Check if executable exists
       run: |
@@ -29,6 +26,9 @@ jobs:
         if [ -f "dist/kumite-win_x64.exe" ]; then
           echo "✅ Executable kumite-win_x64.exe found!"
           file dist/kumite-win_x64.exe
+        elif [ -f "dist/kumite.exe" ]; then
+          echo "✅ Executable kumite.exe found!"
+          file dist/kumite.exe
         else
           echo "❌ Executable not found!"
           echo "Available files in dist/:"
