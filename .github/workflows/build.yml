@@ -27,7 +27,7 @@ jobs:
       run: |
         ls -la dist/
         # Verificar ambos os nomes possíveis
-        if [ -f "neutralino-win_x64.exe" ]; then
+        if [ -f "dist/neutralino-win_x64.exe" ]; then
           echo "✅ Executable kumite-win_x64.exe found!"
           file dist/kumite-win_x64.exe
         else
