@@ -13,22 +13,23 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Run Docker Compose
-      uses: isbang/compose-action@v1.5.1
-      with:
-        compose-file: "./docker-compose.yml"
-        down-flags: "--volumes"
+    - name: Build and extract executable
+      run: |
+        # Build da imagem
+        docker build -t neutralino-app .
+
+        # Executar container e copiar resultado
+        docker run --name temp-container neutralino-app
+        docker cp temp-container:/app/dist ./
+        docker rm temp-container
 
     - name: Check if executable exists
       run: |
         ls -la dist/
         # Verificar ambos os nomes possíveis
-        if [ -f "dist/kumite-win_x64.exe" ]; then
+        if [ -f "kumite-win_x64.exe" ]; then
           echo "✅ Executable kumite-win_x64.exe found!"
           file dist/kumite-win_x64.exe
-        elif [ -f "dist/kumite.exe" ]; then
-          echo "✅ Executable kumite.exe found!"
-          file dist/kumite.exe
         else
           echo "❌ Executable not found!"
           echo "Available files in dist/:"
