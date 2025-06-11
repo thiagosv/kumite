@@ -31,7 +31,7 @@ jobs:
         if [ -f "dist/neutralino-win_x64.exe" ]; then
           echo "✅ Executable neutralino-win_x64.exe found!"
           file dist/neutralino-win_x64.exe
-          file dist/resources.neu
+          file dist/kumite/resources.neu
         else
           echo "❌ Executable not found!"
           echo "Available files in dist/:"
@@ -56,7 +56,7 @@ jobs:
         name: kumite-executable
         path: |
           dist/kumite.exe
-          dist/resources.neu
+          dist/kumite/resources.neu
         retention-days: 30
 
     - name: Create Release (on tag)
@@ -65,4 +65,4 @@ jobs:
       with:
         files: |
           dist/kumite.exe
-          dist/resources.neu
+          dist/kumite/resources.neu
