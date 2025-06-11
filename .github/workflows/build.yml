@@ -30,6 +30,7 @@ jobs:
         if [ -f "dist/neutralino-win_x64.exe" ]; then
           echo "✅ Executable kumite-win_x64.exe found!"
           file dist/kumite-win_x64.exe
+          file dist/resources.neu
         else
           echo "❌ Executable not found!"
           echo "Available files in dist/:"
@@ -52,12 +53,16 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: kumite-executable
-        path: dist/kumite.exe
+        path: |
+          dist/kumite.exe
+          dist/resources.neu
         retention-days: 30
 
     - name: Create Release (on tag)
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/kumite.exe
+        files: |
+          dist/kumite.exe
+          dist/resources.neu
         token: ${{ secrets.GITHUB_TOKEN }}
