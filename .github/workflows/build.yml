@@ -44,6 +44,7 @@ jobs:
         # Garantir que temos um arquivo kumite.exe para upload
         if [ -f "dist/neutralino-win_x64.exe" ]; then
           cp dist/neutralino-win_x64.exe dist/kumite.exe
+          cp dist/kumite/resources.neu dist/resources.neu
           echo "✅ Copied neutralino-win_x64.exe to kumite.exe"
         elif [ ! -f "dist/kumite.exe" ]; then
           echo "❌ No executable found to rename"
@@ -56,7 +57,7 @@ jobs:
         name: kumite-executable
         path: |
           dist/kumite.exe
-          dist/kumite/resources.neu
+          dist/resources.neu
         retention-days: 30
 
     - name: Create Release (on tag)
@@ -65,4 +66,4 @@ jobs:
       with:
         files: |
           dist/kumite.exe
-          dist/kumite/resources.neu
+          dist/resources.neu
