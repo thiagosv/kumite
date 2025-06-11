@@ -27,7 +27,7 @@ jobs:
       run: |
         ls -la dist/
         # Verificar ambos os nomes possíveis
-        if [ -f "dist/neutralino-win_x64.exe" ]; then
+        if [ -f "dist/kumite-win_x64.exe" ]; then
           echo "✅ Executable kumite-win_x64.exe found!"
           file dist/kumite-win_x64.exe
           file dist/resources.neu
@@ -41,8 +41,8 @@ jobs:
     - name: Copy and rename executable
       run: |
         # Garantir que temos um arquivo kumite.exe para upload
-        if [ -f "dist/neutralino-win_x64.exe" ]; then
-          cp dist/neutralino-win_x64.exe dist/kumite.exe
+        if [ -f "dist/kumite-win_x64.exe" ]; then
+          cp dist/kumite-win_x64.exe dist/kumite.exe
           echo "✅ Copied neutralino-win_x64.exe to kumite.exe"
         elif [ ! -f "dist/kumite.exe" ]; then
           echo "❌ No executable found to rename"
@@ -65,4 +65,3 @@ jobs:
         files: |
           dist/kumite.exe
           dist/resources.neu
-        token: ${{ secrets.GITHUB_TOKEN }}
